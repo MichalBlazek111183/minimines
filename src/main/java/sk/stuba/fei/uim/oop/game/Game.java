@@ -1,6 +1,8 @@
 package sk.stuba.fei.uim.oop.game;
 
 
+import sk.stuba.fei.uim.oop.game.tiles.MineRevealedException;
+import sk.stuba.fei.uim.oop.utillity.ZKlavesnice;
 
 public class Game {
 
@@ -11,7 +13,19 @@ public class Game {
     }
 
     public void play(){
-        System.out.println(this.board.draw());
+         try {
+            while(true) {
+                System.out.println(this.board.draw());
+                this.board.reveal(getNextMove());
+            }
+             } catch (MineRevealedException e) {
+                System.out.println("mina");
+         }
     }
 
+    private Move getNextMove(){
+        char row = ZKlavesnice.readChar(String.format("Enter row (a-%s)\n", (char)('a' + Board.BOARD_SIZE -1)));
+        int col = ZKlavesnice.readInt(String.format("Enter column (0-%d)", Board.BOARD_SIZE - 1));
+        return new Move(col, row);
+    }
 }

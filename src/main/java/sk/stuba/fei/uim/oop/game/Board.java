@@ -46,18 +46,20 @@ public class Board {
                     empty.addOrthogonalNeighbours(orthogonal);
 
                     List<Tile> diagonal = new ArrayList<>();
-                    if (i - 1 >= 0) {
-                        orthogonal.add(this.board[i - 1][j]);
+                    if (i - 1 >= 0 && j - 1 >= 0) {
+                        diagonal.add(this.board[i - 1][j-1]);
                     }
-                    if (i + 1 < BOARD_SIZE) {
-                        orthogonal.add(this.board[i + 1][j]);
+                    if (i - 1 >= 0 && j + 1 < BOARD_SIZE) {
+                        diagonal.add(this.board[i - 1][j+1]);
                     }
-                    if (j - 1 >= 0) {
-                        orthogonal.add(this.board[i][j - 1]);
+                    if (i + 1 < BOARD_SIZE && j - 1 >= 0) {
+                        orthogonal.add(this.board[i + 1][j-1]);
                     }
-                    if (j + 1 < BOARD_SIZE) {
-                        orthogonal.add(this.board[i][j + 1]);
+                    if (i + 1 < BOARD_SIZE && j + 1 < BOARD_SIZE) {
+                        orthogonal.add(this.board[i + 1][j+1]);
                     }
+                    empty.addDiagonalNeighbours(diagonal);
+
                 }
             }
         }

@@ -15,6 +15,17 @@ public class Empty extends Tile{
     }
 
     @Override
+    public void reveal() throws MineRevealedException {
+        boolean wasHidden = !this.isRevealed();
+        super.reveal();
+        if (this.nearbyMines == 0 && wasHidden){
+            for (Tile t : this.orthogonalNeighbours){
+                t.reveal();
+            }
+        }
+    }
+
+    @Override
     protected String drawRevealed() {
         if(nearbyMines == 0){
             return ".";
